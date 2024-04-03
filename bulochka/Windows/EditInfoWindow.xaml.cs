@@ -93,13 +93,5 @@ namespace bulochka.Pages
                 }
             }
         }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if(Visibility == Visibility.Visible)
-            {
-                L4Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-            }
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace bulochka
     public partial class MainWindow : Window
     {
         private Student _currentStudent = new Student();
-        L4Entities bd = new L4Entities();
+
         public MainWindow()
         {
             InitializeComponent();

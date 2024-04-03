@@ -17,12 +17,12 @@ namespace bulochka
         public int IDStudent { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int IDFaculty { get; set; }
+        public int IDCurator { get; set; }
         public int IDSpecialization { get; set; }
         public int Course { get; set; }
         public int GroupNumber { get; set; }
     
-        public virtual Faculty Faculty { get; set; }
+        public virtual Curator Curator { get; set; }
         public virtual Specialization Specialization { get; set; }
     }
 }

@@ -15,32 +15,28 @@ using System.Windows.Shapes;
 namespace bulochka.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для EditInfoWindow.xaml
+    /// Логика взаимодействия для AddInfoWindow.xaml
     /// </summary>
-    public partial class EditInfoWindow : Window
+    public partial class AddInfoWindow : Window
     {
         private Student _currentStudent = new Student();
         L4Entities bd = new L4Entities();
 
-        public EditInfoWindow(Student selectStudent)
+        public AddInfoWindow()
         {
             InitializeComponent();
-            if(selectStudent != null)
-            {
-                _currentStudent = selectStudent;
-                DataContext = _currentStudent;
-                ComboBoxEditSpecialization.ItemsSource = L4Entities.GetContext().Specialization.ToList();
-                ComboBoxEditFaculty.ItemsSource = L4Entities.GetContext().Faculty.ToList();
-            }
+            DataContext = _currentStudent;
+            ComboBoxSpecialization.ItemsSource = L4Entities.GetContext().Specialization.ToList();
+            ComboBoxCurator.ItemsSource = L4Entities.GetContext().Curator.ToList();
         }
-   
-        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             bool flag = true;
-            foreach (Control c in GridEdit.Children)
+            foreach (Control c in GridAdd.Children)
             {
                 if (c.GetType() == typeof(TextBox))
-                {
+                { 
                     if (((TextBox)c).Text == String.Empty)
                     {
                         flag = false;
@@ -55,26 +51,25 @@ namespace bulochka.Pages
                     }
                 }
             }
-            if (flag)
-            {
-                L4Entities.GetContext().SaveChanges();
-                MessageBox.Show("Ура! Изменилось!");
-                MainWindow _mainWindow = new MainWindow();
-                _mainWindow.Show();
-                this.Close();
+            if (flag) {
+            L4Entities.GetContext().Student.Add(_currentStudent);
+            L4Entities.GetContext().SaveChanges();
+            MessageBox.Show("Ура! Добавилось!");
+            MainWindow _mainWindow = new MainWindow();
+            _mainWindow.Show();
+            this.Close();
             }
             else MessageBox.Show("Пусто и грустно :( ");
-
         }
 
-        private void ButtonEditBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddBack_Click(object sender, RoutedEventArgs e)
         {
             MainWindow _mainWindow = new MainWindow();
             _mainWindow.Show();
             this.Close();
         }
 
-        private void TextBoxEditCourse_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextBoxCourse_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0))
             {
@@ -82,7 +77,7 @@ namespace bulochka.Pages
             }
         }
 
-        private void TextBoxEditName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextBoxName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             foreach (char c in e.Text)
             {
@@ -91,14 +86,6 @@ namespace bulochka.Pages
                     e.Handled = true;
                     break;
                 }
-            }
-        }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if(Visibility == Visibility.Visible)
-            {
-                L4Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
             }
         }
     }

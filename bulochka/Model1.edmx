@@ -5,12 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище L4Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Faculty">
+        <EntityType Name="Curator">
           <Key>
-            <PropertyRef Name="IDFaculty" />
+            <PropertyRef Name="IDCurator" />
           </Key>
-          <Property Name="IDFaculty" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCurator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="55" Nullable="false" />
         </EntityType>
         <EntityType Name="Specialization">
           <Key>
@@ -26,7 +28,7 @@
           <Property Name="IDStudent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="55" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="55" Nullable="false" />
-          <Property Name="IDFaculty" Type="int" Nullable="false" />
+          <Property Name="IDCurator" Type="int" Nullable="false" />
           <Property Name="IDSpecialization" Type="int" Nullable="false" />
           <Property Name="Course" Type="int" Nullable="false" />
           <Property Name="GroupNumber" Type="int" Nullable="false" />
@@ -41,19 +43,19 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_Student_Faculty">
-          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+        <Association Name="FK_Student_Curator">
+          <End Role="Curator" Type="Self.Curator" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Faculty">
-              <PropertyRef Name="IDFaculty" />
+            <Principal Role="Curator">
+              <PropertyRef Name="IDCurator" />
             </Principal>
             <Dependent Role="Student">
-              <PropertyRef Name="IDFaculty" />
+              <PropertyRef Name="IDCurator" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_Specialization">
+        <Association Name="FK_Student_Specialization1">
           <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,15 +68,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище L4ModelContainer">
-          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curator" EntityType="Self.Curator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Student_Faculty" Association="Self.FK_Student_Faculty">
-            <End Role="Faculty" EntitySet="Faculty" />
+          <AssociationSet Name="FK_Student_Curator" Association="Self.FK_Student_Curator">
+            <End Role="Curator" EntitySet="Curator" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_Specialization" Association="Self.FK_Student_Specialization">
+          <AssociationSet Name="FK_Student_Specialization1" Association="Self.FK_Student_Specialization1">
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
@@ -84,13 +86,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="L4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Faculty">
+        <EntityType Name="Curator">
           <Key>
-            <PropertyRef Name="IDFaculty" />
+            <PropertyRef Name="IDCurator" />
           </Key>
-          <Property Name="IDFaculty" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCurator" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Faculty" FromRole="Faculty" ToRole="Student" />
+          <Property Name="Surname" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Curator" FromRole="Curator" ToRole="Student" />
         </EntityType>
         <EntityType Name="Specialization">
           <Key>
@@ -98,7 +102,7 @@
           </Key>
           <Property Name="IDSpecialization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Specialization" FromRole="Specialization" ToRole="Student" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Specialization1" FromRole="Specialization" ToRole="Student" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -107,12 +111,12 @@
           <Property Name="IDStudent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Surname" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDFaculty" Type="Int32" Nullable="false" />
+          <Property Name="IDCurator" Type="Int32" Nullable="false" />
           <Property Name="IDSpecialization" Type="Int32" Nullable="false" />
           <Property Name="Course" Type="Int32" Nullable="false" />
           <Property Name="GroupNumber" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Faculty" Relationship="Self.FK_Student_Faculty" FromRole="Student" ToRole="Faculty" />
-          <NavigationProperty Name="Specialization" Relationship="Self.FK_Student_Specialization" FromRole="Student" ToRole="Specialization" />
+          <NavigationProperty Name="Curator" Relationship="Self.FK_Student_Curator" FromRole="Student" ToRole="Curator" />
+          <NavigationProperty Name="Specialization" Relationship="Self.FK_Student_Specialization1" FromRole="Student" ToRole="Specialization" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -124,19 +128,19 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Student_Faculty">
-          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+        <Association Name="FK_Student_Curator">
+          <End Role="Curator" Type="Self.Curator" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Faculty">
-              <PropertyRef Name="IDFaculty" />
+            <Principal Role="Curator">
+              <PropertyRef Name="IDCurator" />
             </Principal>
             <Dependent Role="Student">
-              <PropertyRef Name="IDFaculty" />
+              <PropertyRef Name="IDCurator" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_Specialization">
+        <Association Name="FK_Student_Specialization1">
           <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -149,15 +153,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="L4Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Faculty" EntityType="Self.Faculty" />
+          <EntitySet Name="Curator" EntityType="Self.Curator" />
           <EntitySet Name="Specialization" EntityType="Self.Specialization" />
           <EntitySet Name="Student" EntityType="Self.Student" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Student_Faculty" Association="Self.FK_Student_Faculty">
-            <End Role="Faculty" EntitySet="Faculty" />
+          <AssociationSet Name="FK_Student_Curator" Association="Self.FK_Student_Curator">
+            <End Role="Curator" EntitySet="Curator" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_Specialization" Association="Self.FK_Student_Specialization">
+          <AssociationSet Name="FK_Student_Specialization1" Association="Self.FK_Student_Specialization1">
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
@@ -168,11 +172,13 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище L4ModelContainer" CdmEntityContainer="L4Entities">
-          <EntitySetMapping Name="Faculty">
-            <EntityTypeMapping TypeName="L4Model.Faculty">
-              <MappingFragment StoreEntitySet="Faculty">
-                <ScalarProperty Name="IDFaculty" ColumnName="IDFaculty" />
+          <EntitySetMapping Name="Curator">
+            <EntityTypeMapping TypeName="L4Model.Curator">
+              <MappingFragment StoreEntitySet="Curator">
+                <ScalarProperty Name="IDCurator" ColumnName="IDCurator" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -190,7 +196,7 @@
                 <ScalarProperty Name="IDStudent" ColumnName="IDStudent" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="IDFaculty" ColumnName="IDFaculty" />
+                <ScalarProperty Name="IDCurator" ColumnName="IDCurator" />
                 <ScalarProperty Name="IDSpecialization" ColumnName="IDSpecialization" />
                 <ScalarProperty Name="Course" ColumnName="Course" />
                 <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />

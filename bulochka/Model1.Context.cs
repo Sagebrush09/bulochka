@@ -20,6 +20,7 @@ namespace bulochka
             : base("name=L4Entities")
         {
         }
+
         public static L4Entities GetContext()
         {
             if (_context == null)
@@ -31,7 +32,7 @@ namespace bulochka
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Faculty> Faculty { get; set; }
+        public virtual DbSet<Curator> Curator { get; set; }
         public virtual DbSet<Specialization> Specialization { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

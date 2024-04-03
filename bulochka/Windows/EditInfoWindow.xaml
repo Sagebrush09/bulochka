@@ -42,14 +42,14 @@
                 <Label Grid.Row="7" Grid.Column="1" Foreground="White">Курс</Label>
                 <Label Grid.Row="3" Grid.Column="5" Foreground="White">Номер группы</Label>
                 <Label Grid.Row="5" Grid.Column="5" Foreground="White">Специальность</Label>
-                <Label Grid.Row="7" Grid.Column="5" Foreground="White">Факультет</Label>
+                <Label Grid.Row="7" Grid.Column="5" Foreground="White">Куратор</Label>
                 <TextBox x:Name="TextBoxEditName" Text="{Binding Name}" Grid.Row="3" Grid.Column="2"  PreviewTextInput="TextBoxEditName_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxEditSurname" Text="{Binding Surname}" Grid.Row="5" Grid.Column="2" PreviewTextInput="TextBoxEditName_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxEditCourse" Text="{Binding Course}" Grid.Row="7" Grid.Column="2" PreviewTextInput="TextBoxEditCourse_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxEditGroupNumber" Text="{Binding GroupNumber}" Grid.Row="3" Grid.Column="6"  PreviewTextInput="TextBoxEditCourse_PreviewTextInput" MaxLength="20"></TextBox>
                 <Button x:Name="ButtonEditBack" Grid.Row="1" Grid.Column="1" Content="Вернуться назад" Background="#FFE9CB80" Click="ButtonEditBack_Click" ></Button>
                 <ComboBox x:Name="ComboBoxEditSpecialization" SelectedItem="{Binding Specialization}" Grid.Row="5" Grid.Column="6" DisplayMemberPath="Name"/>
-                <ComboBox x:Name="ComboBoxEditFaculty" SelectedItem="{Binding Faculty}" Grid.Row="7" Grid.Column="6" DisplayMemberPath="Name"/>
+                <ComboBox x:Name="ComboBoxEditCurator" SelectedItem="{Binding Curator}" Grid.Row="7" Grid.Column="6" DisplayMemberPath="Surname"/>
             </Grid>
             <Button x:Name="ButtonSaveEdit" Height="55" Width="300" Content="Внести изменения" FontSize="18" Background="#FFE9CB80" Click="ButtonEdit_Click"/>
         </StackPanel>

@@ -41,13 +41,13 @@
                 <Label Grid.Row="7" Grid.Column="1" Foreground="White" Grid.ColumnSpan="2">Курс</Label>
                 <Label Grid.Row="3" Grid.Column="4" Foreground="White" Grid.ColumnSpan="2">Номер группы</Label>
                 <Label Grid.Row="5" Grid.Column="4" Foreground="White" Grid.ColumnSpan="2">Специальность</Label>
-                <Label Grid.Row="7" Grid.Column="4" Foreground="White" Grid.ColumnSpan="2">Факультет</Label>
+                <Label Grid.Row="7" Grid.Column="4" Foreground="White" Grid.ColumnSpan="2">Куратор</Label>
                 <TextBox x:Name="TextBoxName" Text="{Binding Name}" Grid.Row="3" Grid.Column="2" PreviewTextInput="TextBoxName_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxSurname" Text="{Binding Surname}" Grid.Row="5" Grid.Column="2" PreviewTextInput="TextBoxName_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxCourse" Text="{Binding Course}" Grid.Row="7" Grid.Column="2" PreviewTextInput="TextBoxCourse_PreviewTextInput" MaxLength="20"/>
                 <TextBox x:Name="TextBoxGroupNumber" Text="{Binding GroupNumber}" Grid.Row="3" Grid.Column="5" PreviewTextInput="TextBoxCourse_PreviewTextInput" MaxLength="20"/>
                 <ComboBox x:Name="ComboBoxSpecialization" SelectedItem="{Binding Specialization}" Grid.Row="5" Grid.Column="5" DisplayMemberPath="Name"/>
-                <ComboBox x:Name="ComboBoxFaculty" SelectedItem="{Binding Faculty}" Grid.Row="7" Grid.Column="5" DisplayMemberPath="Name"/>
+                <ComboBox x:Name="ComboBoxCurator" SelectedItem="{Binding Curator}" Grid.Row="7" Grid.Column="5" DisplayMemberPath="Surname"/>
                 <Button x:Name="ButtonAddBack" Grid.Row="1" Grid.Column="1" Content="Вернуться назад" Background="#FFE9CB80" Click="ButtonAddBack_Click" Grid.ColumnSpan="2" Height="26" Margin="0,0,117,0" VerticalAlignment="Bottom"></Button>
             </Grid>
             <Button Grid.Row="2" x:Name="ButtonSave" Height="55" Width="300" Content="Сохранить" FontSize="18" Background="#FFE9CB80" Click="ButtonSave_Click"/>

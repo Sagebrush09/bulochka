@@ -25,18 +25,17 @@ namespace bulochka.Pages
         public EditInfoWindow(Student selectStudent)
         {
             InitializeComponent();
-            if(selectStudent != null)
-            {
-                _currentStudent = selectStudent;
-                DataContext = _currentStudent;
-                ComboBoxEditSpecialization.ItemsSource = L4Entities.GetContext().Specialization.ToList();
-                ComboBoxEditCurator.ItemsSource = L4Entities.GetContext().Curator.ToList();
-            }
+            if (selectStudent == null) return;
+            
+            _currentStudent = selectStudent;
+            DataContext = _currentStudent;
+            ComboBoxEditSpecialization.ItemsSource = L4Entities.GetContext().Specialization.ToList();
+            ComboBoxEditCurator.ItemsSource = L4Entities.GetContext().Curator.ToList();
         }
    
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            bool flag = true;
+            var flag = true;
             foreach (Control c in GridEdit.Children)
             {
                 if (c.GetType() == typeof(TextBox))
@@ -59,9 +58,8 @@ namespace bulochka.Pages
             {
                 L4Entities.GetContext().SaveChanges();
                 MessageBox.Show("Ура! Изменилось!");
-                MainWindow _mainWindow = new MainWindow();
-                _mainWindow.Show();
-                this.Close();
+                new MainWindow().Show();
+                Close();
             }
             else MessageBox.Show("Пусто и грустно :( ");
 
@@ -69,14 +67,13 @@ namespace bulochka.Pages
 
         private void ButtonEditBack_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow _mainWindow = new MainWindow();
-            _mainWindow.Show();
-            this.Close();
+            new MainWindow().Show(); 
+            Close();
         }
 
         private void TextBoxEditCourse_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!Char.IsDigit(e.Text, 0))
+            if (!char.IsDigit(e.Text, 0))
             {
                 e.Handled = true;
             }

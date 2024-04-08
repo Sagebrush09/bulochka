@@ -19,8 +19,8 @@ namespace bulochka.Pages
     /// </summary>
     public partial class AddInfoWindow : Window
     {
-        private Student _currentStudent = new Student();
-        L4Entities bd = new L4Entities();
+        private readonly Student _currentStudent = new Student();
+        private readonly L4Entities _bd = new L4Entities();
 
         public AddInfoWindow()
         {
@@ -32,7 +32,7 @@ namespace bulochka.Pages
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            bool flag = true;
+            var flag = true;
             foreach (Control c in GridAdd.Children)
             {
                 if (c.GetType() == typeof(TextBox))
@@ -52,26 +52,24 @@ namespace bulochka.Pages
                 }
             }
             if (flag) {
-            L4Entities.GetContext().Student.Add(_currentStudent);
-            L4Entities.GetContext().SaveChanges();
-            MessageBox.Show("Ура! Добавилось!");
-            MainWindow _mainWindow = new MainWindow();
-            _mainWindow.Show();
-            this.Close();
+                L4Entities.GetContext().Student.Add(_currentStudent);
+                L4Entities.GetContext().SaveChanges();
+                MessageBox.Show("Ура! Добавилось!");
+                new MainWindow().Show();
+                Close();
             }
             else MessageBox.Show("Пусто и грустно :( ");
         }
 
         private void ButtonAddBack_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow _mainWindow = new MainWindow();
-            _mainWindow.Show();
-            this.Close();
+            new MainWindow().Show();
+            Close();
         }
 
         private void TextBoxCourse_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!Char.IsDigit(e.Text, 0))
+            if (!char.IsDigit(e.Text, 0))
             {
                 e.Handled = true;
             }

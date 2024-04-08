@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using bulochka.Pages;
 
 namespace bulochka
 {
@@ -32,30 +33,27 @@ namespace bulochka
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Pages.AddInfoWindow _addInfoWindow = new Pages.AddInfoWindow();
-            _addInfoWindow.Show();
-            this.Close();
+            new AddInfoWindow().Show();
+            Close();
         }
 
         private void ButtonDeleteGrid_Click(object sender, RoutedEventArgs e)
         {
-            var StudentRemoving = DataGridStudent.SelectedItems.Cast<Student>().ToList();
+            var studentRemoving = DataGridStudent.SelectedItems.Cast<Student>().ToList();
             if (MessageBox.Show($"Подтвердить удаление?", "!",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                L4Entities.GetContext().Student.RemoveRange(StudentRemoving);
-                L4Entities.GetContext().SaveChanges();
-                MessageBox.Show("Ура! Удалилось!");
-                DataGridStudent.ItemsSource = L4Entities.GetContext().Student.OrderBy(x => x.IDStudent).ToList();
-            }
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            
+            L4Entities.GetContext().Student.RemoveRange(studentRemoving);
+            L4Entities.GetContext().SaveChanges();
+            MessageBox.Show("Ура! Удалилось!");
+            DataGridStudent.ItemsSource = L4Entities.GetContext().Student.OrderBy(x => x.IDStudent).ToList();
         }
 
         private void ButtonEditGrid_Click(object sender, RoutedEventArgs e)
         {
-            Student item = (Student)DataGridStudent.SelectedItem;
-            Pages.EditInfoWindow _editInfoWindow = new Pages.EditInfoWindow(item);
-            _editInfoWindow.Show();
-            this.Close();
+            var item = (Student)DataGridStudent.SelectedItem;
+            new EditInfoWindow(item).Show();
+            Close();
         }
     }
 }
